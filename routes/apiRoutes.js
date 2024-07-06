@@ -2,7 +2,7 @@ const router = require("express").Router();
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 
-app.get("/api/notes", (req, res) => {
+router.get("/api/notes", (req, res) => {
   // Read the contents of the db.json file
   fs.readFile("db.json", "utf8", (err, data) => {
     if (err) {
