@@ -1,11 +1,13 @@
 const router = require("express").Router();
+const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 
 // http://localhost:3001/api/notes
-router.get("/api/notes", (req, res) => {
+router.get("/notes", (req, res) => {
+  console.log(req.path);
   // Read the contents of the db.json file
-  fs.readFile("../db/db.json", "utf8", (err, data) => {
+  fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", (err, data) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: "Internal Server Error" });
@@ -20,12 +22,12 @@ router.get("/api/notes", (req, res) => {
 
 // Define the route to add a new note
 // http://localhost:3001/api/notes
-router.post("/api/notes", (req, res) => {
+router.post("/notes", (req, res) => {
   const newNote = req.body;
   newNote.id = uuidv4(); // Generate a unique ID for the new note
 
   // Read the contents of the db.json file
-  fs.readFile("../db/db.json", "utf8", (err, data) => {
+  fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", (err, data) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: "Internal Server Error" });
@@ -38,15 +40,19 @@ router.post("/api/notes", (req, res) => {
     notes.push(newNote);
 
     // Write the updated notes back to the db.json file
-    fs.writeFile("../db/db.json", JSON.stringify(notes, null, 2), (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
+    fs.writeFile(
+      path.join(__dirname, "../db/db.json"),
+      JSON.stringify(notes, null, 2),
+      (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
 
-      // Send the new note as JSON response
-      res.json(newNote);
-    });
+        // Send the new note as JSON response
+        res.json(newNote);
+      }
+    );
   });
 });
 

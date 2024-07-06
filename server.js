@@ -12,13 +12,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
-// Use the HTML routes defined in htmlRoutes.js
-// http://localhost:3001/
-app.use("/", htmlRoutes);
-
 //Use the api routes defined in apiRoutes.js
 // http://localhost:3001/api
 app.use("/api", apiRoutes);
+
+// Use the HTML routes defined in htmlRoutes.js
+// http://localhost:3001/
+app.use("/", htmlRoutes);
 
 // start the server
 app.listen(PORT, () => {
