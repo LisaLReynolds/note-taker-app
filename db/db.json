@@ -1,6 +1,11 @@
 [
-    {
-        "title":"Test Title",
-        "text":"Test text"
-    }
+  {
+    "title": "Test Title",
+    "text": "Test text"
+  },
+  {
+    "title": "yoga",
+    "text": "30min",
+    "id": "057c1f5b-a23c-4d05-b914-91ddea408ca5"
+  }
 ]
